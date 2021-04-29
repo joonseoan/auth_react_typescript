@@ -16,7 +16,7 @@ export interface SignupProps extends RouterProps {
  errorMessage: string;  
 };
 
-class Signup extends React.Component<InjectedFormProps<FormProps> & SignupProps> {
+class Signup extends React.Component<InjectedFormProps<FormProps, SignupProps> & SignupProps> {
 
   onSubmit = (formProps: FormProps) => {
     this.props.signup(formProps, () => {
@@ -47,28 +47,12 @@ class Signup extends React.Component<InjectedFormProps<FormProps> & SignupProps>
 };
 
 const mapStateToProps = ({ auth }: { auth: AuthReducerState }) => {
-  return { errorMessage: auth.errorMessage };
+  if (auth.errorMessage) return { errorMessage: auth.errorMessage };
+  return null;
 }
 
-// const SignupExample = connect(mapStateToProps, {signup})(Signup);
-
-// export default reduxForm<{}, FormProps>(
-//     { form: 'signupForm' }
-// )(SignupExample);
-
-// export default reduxForm<{}, FormProps>(
-//   { form: 'signupForm' }
-// )(
-//    connect(mapStateToProps, { signup })(Signup)
-// );
-
-
-// export default connect(mapStateToProps, { signup })(
-//   reduxForm<FormProps>({ form: 'signupForm' })(Signup)
-// )
-
-export default compose(
-  connect(mapStateToProps, { signup }),
-  reduxForm<FormProps>({ form: 'signupForm'}),
-)(Signup);
-
+export default connect(mapStateToProps, { signup })(
+  reduxForm<FormProps, SignupProps>({
+    form: 'signupForm' 
+  })(Signup)
+);

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ActionType } from '../action-types';
 import { FormProps } from '../../components/auth/signup';
 import { Dispatch } from 'redux';
+import {AuthUserAction, AuthUserError} from '../actions';
 
 
 export const signup = ({ email, password }: FormProps, callback: () => void) => {
@@ -17,12 +18,16 @@ export const signup = ({ email, password }: FormProps, callback: () => void) => 
         throw new Error('Unable to signup');
       }
 
-      dispatch({ type: ActionType.AUTH_USER, payload: data.token });
+      dispatch<AuthUserAction>({ type: ActionType.AUTH_USER, payload: data.token });
+      localStorage.setItem('token', data.token);
       callback();
     } catch(e) {
-      dispatch({ type: ActionType.AUTH_ERROR, payload: 'Email in use' });
+      dispatch<AuthUserError>({ type: ActionType.AUTH_ERROR, payload: 'Email in use' });
     }
-    
-
   }
 };
+
+export const signout = () => {
+  localStorage.clearItem('token');
+  return { type: ActionType.AUTH_USER, payload: '' };
+}

@@ -2,7 +2,7 @@ import { ActionType } from '../action-types';
 import { Actions } from '../actions';
 export interface AuthReducerState {
   authenticated: string;
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 const INITIAL_STATE = {
