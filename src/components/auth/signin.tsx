@@ -3,22 +3,19 @@ import { connect } from 'react-redux';
 import { RouterProps } from 'react-router';
 
 import { reduxForm, Field, InjectedFormProps } from 'redux-form';
+import { FormProps } from './signup';
 import { actionCreators, AuthReducerState } from '../../app_state';
-const { signup } = actionCreators;
-export interface FormProps {
-  email: string;
-  password: string;
-}
+const { signin } = actionCreators;
 
-export interface SignupProps extends RouterProps {
- signup: (emailPassword: FormProps, cb: () => void) => Promise<void>;
+export interface SigninProps extends RouterProps {
+ signin: (emailPassword: FormProps, cb: () => void) => Promise<void>;
  errorMessage?: string;  
 };
 
-class Signup extends React.Component<InjectedFormProps<FormProps, SignupProps> & SignupProps> {
+class Signin extends React.Component<InjectedFormProps<FormProps, SigninProps> & SigninProps> {
 
   onSubmit = (formProps: FormProps) => {
-    this.props.signup(formProps, () => {
+    this.props.signin(formProps, () => {
       this.props.history.push('/feature');
     });
   }
@@ -37,7 +34,7 @@ class Signup extends React.Component<InjectedFormProps<FormProps, SignupProps> &
           <Field name="password" type="password" component="input" autoComplete="none" />
         </fieldset>
         <div>{ this.props.errorMessage }</div>
-        <button type="submit">Sign up!</button>
+        <button type="submit">Sign In!</button>
       </form>
     );
   }
@@ -47,8 +44,8 @@ const mapStateToProps = ({ auth }: { auth: AuthReducerState }) => {
   return { errorMessage: auth.errorMessage };
 }
 
-export default connect(mapStateToProps, { signup })(
-  reduxForm<FormProps, SignupProps>({
-    form: 'signupForm' 
-  })(Signup)
+export default connect(mapStateToProps, { signin })(
+  reduxForm<FormProps, SigninProps>({
+    form: 'signinForm' 
+  })(Signin)
 );

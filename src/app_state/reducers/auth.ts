@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 const authReducer = (state: AuthReducerState = INITIAL_STATE, action: Actions) => {
   switch(action.type) {
     case ActionType.AUTH_USER:
+      console.log('action.payload ------> ', action.payload)
       return { ...state, authenticated: action.payload };
     case ActionType.AUTH_ERROR:
       return { ...state, errorMessage: action.payload };

@@ -9,6 +9,7 @@ import Welcome from './components/welcome';
 import Signup from './components/auth/signup';
 import Feature from './components/feature';
 import Signout from './components/auth/signout';
+import Signin from './components/auth/signin';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ ReactDOM.render(
           <Route path="/" exact component={Welcome} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/feature" exact component={Feature} />
+          <Route path="/signin" exact component={Signin} />
           <Route path="/signout" exact component={Signout} />
         </App>
       </BrowserRouter>

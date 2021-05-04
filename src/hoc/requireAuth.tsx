@@ -1,4 +1,4 @@
-import { ComponentType, Component, FC, useEffect } from 'react';
+import { ComponentType, FC, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { RouterProps } from 'react-router';
 
